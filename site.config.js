@@ -13,7 +13,7 @@ window.SITE_CONFIG = {
   links: {
     /* Perfil GitHub (ex.: 'https://github.com/utilizador').
        Vazio → os botões de GitHub ficam ocultos. */
-    github: '',
+    github: 'https://github.com/vascoh',
   },
 
   /* Serviço de envio do formulário (ex.: endpoint Formspree
