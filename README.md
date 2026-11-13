@@ -18,7 +18,7 @@ envio). Com um endpoint (ex.: Formspree), faz POST JSON e só confirma com respo
 ## Publicação
 
 Publicado em https://vasco-henriques.vercel.app (projeto Vercel `vasco-henriques`).
-Repositório: https://github.com/vascoh/portfolio (privado). Cada push para `main` publica
+Repositório: https://github.com/vascoh/portfolio (público). Cada push para `main` publica
 automaticamente em produção; outros ramos geram URLs de pré-visualização.
 Se mudar de domínio, atualizar `canonical`, `og:url`, `og:image`, `twitter:image` e o JSON-LD
 em `index.html`, mais `sitemap.xml` e `robots.txt`.
