@@ -177,7 +177,8 @@ main:focus { outline: none; }
 .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
 .btn-sm { min-height: 40px; padding: 8px 16px; font-size: .9rem; }
 .btn-block { width: 100%; }
-.btn[disabled] { opacity: .65; cursor: progress; }
+.btn[disabled] { opacity: .65; cursor: not-allowed; }
+.btn[aria-busy="true"] { cursor: progress; }
 
 .icon-btn {
   display: inline-grid; place-items: center;
@@ -385,13 +386,82 @@ main:focus { outline: none; }
 .project:hover { box-shadow: var(--shadow); border-color: var(--border-strong); }
 .project-media { aspect-ratio: 16 / 10; background: var(--bg-alt); border-bottom: 1px solid var(--border); overflow: hidden; }
 .project-media img { width: 100%; height: 100%; object-fit: cover; }
-.project-placeholder { display: grid; place-items: center; height: 100%; padding: 24px; background:
-  radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0) 0 0 / 18px 18px; }
-.placeholder-art { width: min(100%, 360px); }
-.ph-flow rect { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
-.ph-flow .ph-end { stroke: var(--accent); }
-.ph-arrow { fill: none; stroke: var(--primary); stroke-width: 2; stroke-dasharray: 4 5; }
-.placeholder-art text { fill: var(--text-muted); font-family: var(--font-mono); font-size: 12px; }
+/* Arquitetura do protótipo FPF (substitui o antigo placeholder; some se houver fpf.image) */
+.project-media-arch { aspect-ratio: auto; }
+.arch {
+  margin: 0; height: 100%; display: grid; align-content: center; gap: 18px; padding: 24px;
+  background: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0) 0 0 / 18px 18px;
+}
+.arch-cap {
+  display: grid; gap: 2px; font-family: var(--font-mono); font-size: .76rem;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted);
+}
+.arch-note { text-transform: none; letter-spacing: 0; font-size: .78rem; }
+.arch-flow { display: grid; gap: 22px; counter-reset: arch; }
+.arch-step {
+  position: relative; display: grid; gap: 2px; padding: 12px 14px 12px 52px;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px;
+  counter-increment: arch;
+}
+.arch-step::before {
+  content: counter(arch); position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--primary-soft); color: var(--primary);
+  font-family: var(--font-mono); font-size: .8rem; font-weight: 600;
+}
+/* Seta entre passos (decorativa) */
+.arch-step:not(:last-child)::after {
+  content: ""; position: absolute; left: 26px; bottom: -19px; width: 2px; height: 16px;
+  background: repeating-linear-gradient(to bottom, var(--primary) 0 4px, transparent 4px 7px);
+}
+.arch-step-end { border-color: var(--accent); }
+.arch-kind {
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.arch-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+.arch-detail { font-size: .86rem; color: var(--text-muted); }
+/* Ecrãs estreitos: esquema compacto para não ocupar um ecrã inteiro */
+@media (max-width: 599px) {
+  .arch { gap: 14px; padding: 20px 16px; }
+  .arch-flow { gap: 16px; }
+  .arch-step { padding: 8px 12px 8px 46px; }
+  .arch-step::before { left: 12px; width: 24px; height: 24px; }
+  .arch-step:not(:last-child)::after { left: 23px; bottom: -14px; height: 12px; }
+  .arch-kind { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+.project-body > .project-sub { margin-top: -10px; font-weight: 600; color: var(--text); }
+.facts { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.facts > div {
+  display: grid; grid-template-rows: 1fr auto; gap: 2px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 10px; background: var(--bg-alt);
+}
+.facts dt { font-size: .78rem; color: var(--text-muted); }
+.facts dd { margin: 0; font-family: var(--font-mono); font-size: 1.15rem; font-weight: 600; color: var(--text); }
+@media (min-width: 600px) { .facts { grid-template-columns: repeat(4, 1fr); } }
+
+.disclosure { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.disclosure > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 46px; padding: 10px 14px; cursor: pointer; font-weight: 600; list-style: none;
+  border-radius: 10px;
+}
+.disclosure > summary::-webkit-details-marker { display: none; }
+.disclosure > summary::after {
+  content: ""; flex: none; width: 8px; height: 8px; margin-right: 4px;
+  border: solid var(--text-muted); border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-2px);
+  transition: transform .2s var(--ease);
+}
+.disclosure[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
+.disclosure > summary:hover { color: var(--primary); }
+.disclosure-body { display: grid; gap: 10px; padding: 4px 14px 16px; border-top: 1px solid var(--border); }
+.disclosure-title {
+  margin: 8px 0 0; font-size: .78rem; font-family: var(--font-mono); font-weight: 500;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted);
+}
+.bullets { display: grid; gap: 6px; padding-left: 1.1em; list-style: disc; color: var(--text-muted); font-size: .94rem; }
+.bullets li::marker { color: var(--accent); }
 
 .project-body { display: grid; gap: 16px; align-content: start; padding: 24px; }
 .project-body > p { color: var(--text-muted); }
@@ -470,6 +540,9 @@ a.contact-value:hover { color: var(--primary); }
 .field [aria-invalid="true"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, transparent); }
 .field-error { min-height: 0; font-size: .86rem; font-weight: 500; color: var(--danger); }
 .field-error:empty { display: none; }
+
+.form-hint { margin-top: -6px; font-size: .88rem; line-height: 1.5; color: var(--text-muted); }
+.form-hint a { font-weight: 600; }
 
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 

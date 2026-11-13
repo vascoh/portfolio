@@ -309,45 +309,83 @@
 
         <div class="projects" data-projects>
           <article class="card project project-featured reveal" aria-labelledby="fpf-title">
-            <!-- Imagem: preencher fpf.image em site.config.js -->
-            <div class="project-media" data-fpf-media>
+            <!-- Por omissão mostra a arquitetura do protótipo (HTML acessível, não é captura).
+                 Se fpf.image estiver preenchido em site.config.js, a imagem substitui-a. -->
+            <div class="project-media project-media-arch" data-fpf-media>
               <img data-fpf-image alt="" width="1280" height="800" loading="lazy" decoding="async" hidden>
-              <div class="project-placeholder" data-fpf-placeholder aria-hidden="true">
-                <svg viewBox="0 0 320 200" class="placeholder-art">
-                  <g class="ph-flow">
-                    <rect x="16" y="78" width="64" height="44" rx="8"/>
-                    <rect x="128" y="78" width="64" height="44" rx="8"/>
-                    <rect x="240" y="78" width="64" height="44" rx="8" class="ph-end"/>
-                    <path d="M80 100h48M192 100h48" class="ph-arrow"/>
-                  </g>
-                  <text x="48" y="104" text-anchor="middle">raw</text>
-                  <text x="160" y="104" text-anchor="middle">clean</text>
-                  <text x="272" y="104" text-anchor="middle">insight</text>
-                </svg>
-              </div>
+              <figure class="arch" data-fpf-placeholder aria-labelledby="fpf-arch-cap">
+                <figcaption class="arch-cap" id="fpf-arch-cap">Arquitetura do protótipo <span class="arch-note">esquema do fluxo de dados, não é uma captura do relatório</span></figcaption>
+                <ol class="arch-flow">
+                  <li class="arch-step">
+                    <span class="arch-kind">Origem</span>
+                    <strong class="arch-title">Dados públicos</strong>
+                    <span class="arch-detail">StatsBomb Open Data · eventos em JSON</span>
+                  </li>
+                  <li class="arch-step">
+                    <span class="arch-kind">Transformação</span>
+                    <strong class="arch-title">Python</strong>
+                    <span class="arch-detail">pandas · métricas e verificações de qualidade</span>
+                  </li>
+                  <li class="arch-step">
+                    <span class="arch-kind">Modelo</span>
+                    <strong class="arch-title">Parquet</strong>
+                    <span class="arch-detail">modelo dimensional · 9 tabelas</span>
+                  </li>
+                  <li class="arch-step arch-step-end">
+                    <span class="arch-kind">Análise</span>
+                    <strong class="arch-title">Power BI</strong>
+                    <span class="arch-detail">relatório de 6 páginas · medidas DAX</span>
+                  </li>
+                </ol>
+              </figure>
             </div>
 
             <div class="project-body">
-              <p class="kicker kicker-sm">Dados desportivos</p>
+              <p class="kicker kicker-sm">Estudo de caso · Dados desportivos</p>
               <h3 class="project-title" id="fpf-title">FPF Sports Intelligence</h3>
-              <p>Projeto orientado para o processamento, transformação e análise de dados desportivos. O objetivo é converter dados brutos em informação estruturada, fiável e relevante, facilitando a exploração de indicadores e apoiando decisões baseadas em evidência.</p>
+              <p class="project-sub">Protótipo independente · Portugal no EURO 2024</p>
+              <p>Reúne os eventos de futebol do EURO 2024 publicados pela StatsBomb e compara o desempenho de Portugal com o resto do torneio. É um protótipo pessoal com dados públicos: não é um sistema oficial da FPF nem usa dados internos da federação.</p>
 
-              <h4 class="list-title">Responsabilidades e funcionalidades</h4>
+              <h4 class="list-title">O que está implementado</h4>
               <ul class="checklist">
-                <li>Recolha e organização de dados</li>
-                <li>Limpeza e transformação de dados com Python</li>
-                <li>Estruturação de informação para análise</li>
-                <li>Automatização de processos repetitivos</li>
-                <li>Preparação de dados para visualização e tomada de decisão</li>
+                <li>Ingestão dos ficheiros JSON públicos de jogos, plantéis e eventos</li>
+                <li>Transformação em Python para um modelo dimensional em Parquet</li>
+                <li>Métricas por jogador e por equipa, com validações de qualidade a cada execução</li>
+                <li>Relatório Power BI de seis páginas, com medidas em DAX</li>
               </ul>
+
+              <dl class="facts" aria-label="Dimensão do protótipo">
+                <div><dt>Jogos do torneio</dt><dd>51</dd></div>
+                <div><dt>Tabelas Parquet</dt><dd>9</dd></div>
+                <div><dt>Regras de qualidade</dt><dd>23</dd></div>
+                <div><dt>Medidas DAX</dt><dd>99</dd></div>
+              </dl>
+
+              <details class="disclosure">
+                <summary>Decisões técnicas e limites</summary>
+                <div class="disclosure-body">
+                  <h5 class="disclosure-title">Decisões técnicas</h5>
+                  <ul class="bullets">
+                    <li>Os intervalos de participação sobrepostos são unidos antes de somar, para não contar minutos jogados duas vezes.</li>
+                    <li>Os percentis são calculados por posição e só incluem jogadores com pelo menos 180 minutos.</li>
+                    <li>Os eventos detalhados limitam-se aos jogos de Portugal; para comparação usam-se agregados de todo o torneio.</li>
+                  </ul>
+                  <h5 class="disclosure-title">Limites</h5>
+                  <ul class="bullets">
+                    <li>Só dados de eventos: sem dados de <i lang="en">tracking</i> nem dados clínicos.</li>
+                    <li>Amostra curta: cinco jogos de Portugal. As conclusões por jogador são indícios, não certezas.</li>
+                    <li>É um protótipo: sem atualização agendada nem controlo de acessos de produção.</li>
+                  </ul>
+                </div>
+              </details>
 
               <h4 class="visually-hidden">Tecnologias</h4>
               <ul class="tags" aria-label="Tecnologias">
                 <li class="tag">Python</li>
-                <li class="tag">Processamento de dados</li>
-                <li class="tag">Automação</li>
-                <li class="tag">Análise de dados</li>
-                <li class="tag">Visualização de informação</li>
+                <li class="tag">pandas</li>
+                <li class="tag">Parquet</li>
+                <li class="tag">Power BI</li>
+                <li class="tag">DAX</li>
               </ul>
 
               <!-- Ligações: ficam ocultas até fpf.demo / fpf.repo estarem preenchidos -->
@@ -440,7 +478,9 @@
         </div>
 
         <div class="card form-card reveal">
-          <form class="contact-form" data-contact-form novalidate>
+          <!-- Sem JavaScript o botão fica desativado (nem clique nem Enter submetem),
+               para que os dados nunca acabem num pedido GET/URL. O main.js ativa-o. -->
+          <form class="contact-form" data-contact-form method="post" novalidate>
             <div class="field">
               <label for="f-name">Nome</label>
               <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="f-name-err">
@@ -466,9 +506,15 @@
               <label for="f-website">Website</label>
               <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
-            <button class="btn btn-primary btn-block" type="submit" data-submit>
-              <span data-submit-label>Enviar mensagem</span>
+            <!-- Texto do botão e da indicação definidos em main.js (contactMode), conforme
+                 exista ou não formEndpoint em site.config.js. -->
+            <button class="btn btn-primary btn-block" type="submit" data-submit disabled aria-describedby="f-submit-hint">
+              <span data-submit-label>Abrir aplicação de e-mail</span>
             </button>
+            <p class="form-hint" id="f-submit-hint" data-submit-hint hidden></p>
+            <noscript>
+              <p class="form-hint">O formulário precisa de JavaScript. Pode escrever diretamente para <a href="mailto:vascotelo@hotmail.com">vascotelo@hotmail.com</a>.</p>
+            </noscript>
             <div class="form-status" data-form-status role="status" aria-live="polite" hidden></div>
           </form>
         </div>

@@ -116,6 +116,7 @@
     fi.alt = fpf.imageAlt || '';
     fi.hidden = false;
     $('[data-fpf-placeholder]').hidden = true;
+    $('[data-fpf-media]').classList.remove('project-media-arch');
   }
   var anyFpfLink = false;
   [['demo', '[data-fpf-demo]'], ['repo', '[data-fpf-repo]']].forEach(function (p) {
@@ -256,8 +257,10 @@
   }
 
   var fields = Object.keys(rules).map(function (n) { return form.elements[n]; });
+  // Valida só na submissão e corrige ao escrever. Não há validação no blur: inserir
+  // uma mensagem de erro no blur desloca o botão entre mousedown e mouseup e o
+  // clique perde-se (o click acabava no <form>, sem submit).
   fields.forEach(function (input) {
-    input.addEventListener('blur', function () { if (input.value.trim()) validateField(input); });
     input.addEventListener('input', function () {
       if (input.getAttribute('aria-invalid') === 'true') validateField(input);
     });
@@ -280,13 +283,67 @@
     return 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(d.subject) + '&body=' + encodeURIComponent(body);
   }
 
+  /* Endpoint de envio: só URLs http(s) absolutas ou caminhos relativos que resolvam
+     para http(s). mailto:, javascript:, data: e afins são rejeitados (→ modo e-mail). */
+  function httpEndpoint(v) {
+    if (!filled(v)) return '';
+    var s = v.trim();
+    if (/\s/.test(s)) return '';
+    var hasScheme = /^[a-z][a-z0-9+.\-]*:/i.test(s);
+    if (hasScheme && !/^https?:\/\//i.test(s)) return '';
+    try {
+      var u = new URL(s, window.location.href);
+      return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '';
+    } catch (err) { return ''; }
+  }
+
+  /* Modo do formulário, decidido uma única vez: rótulo, indicação, submissão e
+     reposição do botão saem todos daqui. */
+  var contactMode = (function () {
+    var endpoint = httpEndpoint(cfg.formEndpoint);
+    if (endpoint) {
+      return {
+        kind: 'http',
+        endpoint: endpoint,
+        label: 'Enviar mensagem',
+        busyLabel: 'A enviar…',
+        hint: ''
+      };
+    }
+    return {
+      kind: 'mailto',
+      endpoint: '',
+      label: 'Abrir aplicação de e-mail',
+      busyLabel: '',
+      hint: 'A mensagem será preparada na sua aplicação de e-mail. O envio só fica concluído quando a enviar a partir dessa aplicação.'
+    };
+  })();
+
+  var submitHint = $('[data-submit-hint]');
   function setBusy(busy) {
     submitBtn.disabled = busy;
-    submitLabel.textContent = busy ? 'A enviar…' : 'Enviar mensagem';
+    if (busy) submitBtn.setAttribute('aria-busy', 'true');
+    else submitBtn.removeAttribute('aria-busy');
+    submitLabel.textContent = busy && contactMode.busyLabel ? contactMode.busyLabel : contactMode.label;
+  }
+  form.dataset.mode = contactMode.kind;
+  if (contactMode.hint) {
+    submitHint.textContent = contactMode.hint;
+    submitHint.hidden = false;
+  } else {
+    submitHint.textContent = '';
+    submitHint.hidden = true;
+    submitBtn.removeAttribute('aria-describedby');
+  }
+  setBusy(false); // ativa o botão (vem desativado no HTML para quem não tem JS)
+
+  function directEmailHtml(mailto) {
+    return '<a href="' + escapeHtml(mailto) + '">' + EMAIL + '</a>';
   }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (submitBtn.disabled) return; // envio em curso
     status.hidden = true;
 
     var firstInvalid = null;
@@ -305,22 +362,25 @@
       message: form.elements.message.value.trim()
     };
     var mailto = buildMailto(data);
-    var endpoint = safeUrl(cfg.formEndpoint);
 
-    if (!endpoint) {
-      // Sem serviço de envio: abre o cliente de e-mail. Não confirmamos envio.
+    if (contactMode.kind === 'mailto') {
+      // Não sabemos se a aplicação abriu nem se a mensagem foi enviada: não o afirmamos.
+      // O texto fica no formulário para poder tentar de novo ou copiá-lo.
       window.location.href = mailto;
-      showStatus('', 'Falta só um passo',
-        '<p>Abrimos a sua aplicação de e-mail com a mensagem preenchida. Para a enviar, confirme o envio a partir daí.</p>' +
-        '<p>Se nada abriu, escreva diretamente para <a href="' + escapeHtml(mailto) + '">' + EMAIL + '</a>.</p>');
+      showStatus('', 'Conclua o envio na aplicação de e-mail',
+        '<p>Pedimos ao seu dispositivo para abrir a aplicação de e-mail com a mensagem preenchida. A mensagem só é enviada quando carregar em «Enviar» nessa aplicação.</p>' +
+        '<p>Se nenhuma aplicação abriu, escreva diretamente para ' + directEmailHtml(mailto) + '. O texto que escreveu continua no formulário.</p>');
       return;
     }
 
     setBusy(true);
-    fetch(endpoint, {
+    var ctrl = 'AbortController' in window ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 20000) : null;
+    fetch(contactMode.endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(Object.assign({ _subject: data.subject, _replyto: data.email }, data))
+      body: JSON.stringify(Object.assign({ _subject: data.subject, _replyto: data.email }, data)),
+      signal: ctrl ? ctrl.signal : undefined
     }).then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       form.reset();
@@ -328,7 +388,10 @@
         '<p>Obrigado pelo contacto. Responderei para o e-mail indicado assim que possível.</p>');
     }).catch(function () {
       showStatus('error', 'Não foi possível enviar a mensagem',
-        '<p>Tente novamente ou envie-a por e-mail: <a href="' + escapeHtml(mailto) + '">' + EMAIL + '</a>. O texto que escreveu foi mantido.</p>');
-    }).then(function () { setBusy(false); });
+        '<p>Tente novamente ou envie-a por e-mail para ' + directEmailHtml(mailto) + '. O texto que escreveu foi mantido.</p>');
+    }).then(function () {
+      if (timer) clearTimeout(timer);
+      setBusy(false);
+    });
   });
 })();

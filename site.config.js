@@ -17,10 +17,11 @@ window.SITE_CONFIG = {
   },
 
   /* Serviço de envio do formulário (ex.: endpoint Formspree
-     'https://formspree.io/f/xxxxxxx'). Tem de aceitar POST JSON e
-     responder 2xx em caso de sucesso.
-     Vazio → o formulário abre o cliente de e-mail com a mensagem
-     preenchida (não é simulado nenhum envio). */
+     'https://formspree.io/f/xxxxxxx' ou caminho relativo '/api/contacto').
+     Tem de aceitar POST JSON e responder 2xx em caso de sucesso.
+     Vazio ou inválido (mailto: não conta) → o botão passa a «Abrir aplicação
+     de e-mail» e o formulário prepara a mensagem nessa aplicação
+     (não é simulado nenhum envio). */
   formEndpoint: '',
 
   /* Recursos do projeto FPF Sports Intelligence. */
