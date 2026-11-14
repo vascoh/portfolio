@@ -15,7 +15,7 @@ export function ProjectCard({ project, lang, dict }: { project: Project; lang: L
         aria-hidden
         className="pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-accent/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 sm:opacity-60"
       />
-      <div className="relative flex items-start justify-between gap-3">
+      <div className="pointer-events-none relative flex items-start justify-between gap-3">
         <span className="grid size-11 place-items-center rounded-xl border border-border bg-gradient-to-br from-accent/15 to-accent-2/10 text-accent">
           <Icon className="size-5" aria-hidden />
         </span>
@@ -29,26 +29,26 @@ export function ProjectCard({ project, lang, dict }: { project: Project; lang: L
           <StatusBadge status={project.status} dict={dict} />
         </div>
       </div>
-      <h3 className="relative mt-5 text-lg font-semibold tracking-tight text-fg">
-        <Link href={link} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
+      <h3 className="mt-5 text-lg font-semibold tracking-tight text-fg">
+        <Link href={link} className="rounded-sm after:absolute after:inset-0 after:z-0 after:rounded-2xl after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-accent">
           {tr(project.title, lang)}
         </Link>
       </h3>
-      <p className="relative mt-2 line-clamp-4 text-sm leading-relaxed text-fg-muted">{tr(project.summary, lang)}</p>
+      <p className="pointer-events-none relative mt-2 text-sm leading-relaxed text-fg-muted">{tr(project.summary, lang)}</p>
       {(project.url || project.previewUrl) && (
-        <p className="relative mt-3 flex items-center gap-1.5 font-mono text-xs text-accent-2">
+        <p className="pointer-events-none relative mt-3 flex items-center gap-1.5 font-mono text-xs text-accent-2">
           <Globe className="size-3.5" aria-hidden />
           {new URL((project.url || project.previewUrl)!).hostname}
         </p>
       )}
-      <ul className="relative mt-5 flex flex-wrap gap-1.5" aria-label={dict.projects.technologies}>
+      <ul className="pointer-events-none relative mt-5 flex flex-wrap gap-1.5" aria-label={dict.projects.technologies}>
         {project.tags.map((t) => (
           <li key={t} className="rounded-md bg-surface-strong/60 px-2 py-0.5 font-mono text-[0.7rem] text-fg-subtle ring-1 ring-border">
             {t}
           </li>
         ))}
       </ul>
-      <div className="relative mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-accent">
+      <div aria-hidden className="pointer-events-none relative mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-accent group-hover:underline underline-offset-4">
         {project.kind === "bi" ? dict.projects.readCase : dict.projects.viewProject}
         <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
       </div>
