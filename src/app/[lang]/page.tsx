@@ -19,7 +19,7 @@ type Props = { params: Promise<{ lang: Locale }> };
 export async function generateMetadata({ params }: Props) {
   const { lang } = await params;
   const d = getDictionary(lang);
-  return pageMetadata(lang, "/", `Vasco Henriques — Senior BI Consultant | SQL Server & Power BI`, d.hero.text);
+  return pageMetadata(lang, "/", `Vasco Henriques — Senior BI Consultant & Data Engineer`, d.hero.text);
 }
 
 export default async function HomePage({ params }: Props) {
