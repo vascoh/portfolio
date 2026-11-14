@@ -8,8 +8,9 @@ import { href, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
+import { hasPublishedPosts } from "@/content/posts";
 
-const items = ["about", "projects", "skills", "experience", "insights"] as const;
+const items = (["about", "projects", "skills", "experience", "insights"] as const).filter((k) => k !== "insights" || hasPublishedPosts);
 
 export function Header({ lang, dict }: { lang: Locale; dict: Dictionary["nav"] }) {
   const pathname = usePathname() || `/${lang}/`;

@@ -2,10 +2,11 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { href, locales } from "@/i18n/config";
+import { hasPublishedPosts } from "@/content/posts";
 
 export const dynamic = "force-static";
 
-const pages = ["/", "about", "projects", "skills", "experience", "insights", "contact", ...projects.map((p) => `projects/${p.slug}`)];
+const pages = ["/", "about", "projects", "skills", "experience", ...(hasPublishedPosts ? ["insights"] : []), "contact", ...projects.map((p) => `projects/${p.slug}`)];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

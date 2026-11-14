@@ -22,6 +22,7 @@ const en = {
     text: "Almost 8 years in Business Intelligence: SQL Server data models, T-SQL, ETL and Power BI, often with hundreds of millions of rows where performance decides the project. I also build data pipelines in Python and web applications of my own.",
     explore: "Explore My Projects",
     cv: "Download CV",
+    cvRequest: "Request CV",
     contact: "Get in Touch",
     tagline: "Transforming Data into Decisions. Turning Ideas into Digital Solutions.",
     photoPlaceholder: "Professional photo — to be added",
@@ -161,7 +162,7 @@ const en = {
     cvTitle: "Curriculum Vitae",
     cvEn: "CV — English",
     cvPt: "CV — Português",
-    pending: "To be configured",
+    pending: "Available on request",
     subjects: ["Job opportunity", "Consulting / freelance", "Collaboration", "Other"],
   },
   footer: {
@@ -200,6 +201,7 @@ const pt: Dictionary = {
     text: "Quase 8 anos em Business Intelligence: modelos de dados em SQL Server, T-SQL, ETL e Power BI, muitas vezes com centenas de milhões de linhas, onde a performance decide o projeto. Também construo pipelines de dados em Python e aplicações web próprias.",
     explore: "Explorar Projetos",
     cv: "Descarregar CV",
+    cvRequest: "Pedir CV",
     contact: "Entrar em Contacto",
     tagline: "Transformar Dados em Decisões. Transformar Ideias em Soluções Digitais.",
     photoPlaceholder: "Fotografia profissional — a adicionar",
@@ -339,7 +341,7 @@ const pt: Dictionary = {
     cvTitle: "Curriculum Vitae",
     cvEn: "CV — English",
     cvPt: "CV — Português",
-    pending: "A configurar",
+    pending: "Disponível a pedido",
     subjects: ["Oportunidade profissional", "Consultoria / freelance", "Colaboração", "Outro"],
   },
   footer: {

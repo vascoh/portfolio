@@ -33,7 +33,7 @@ export const skillGroups: SkillGroup[] = [
       en: "Tools to automate processes, version code and move data reliably.",
       pt: "Ferramentas para automatizar processos, versionar código e mover dados com fiabilidade.",
     },
-    items: ["Python", "PowerShell", "Git", "Azure DevOps", "ETL", "Automation"],
+    items: ["Python", "pandas", "Parquet", "pytest", "PowerShell", "Git", "Azure DevOps", "ETL", "Automation"],
   },
   {
     id: "web",

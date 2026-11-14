@@ -77,3 +77,6 @@ export const posts: Post[] = [
     published: null,
   },
 ];
+
+/** The Insights section is only linked (nav, footer, sitemap) once at least one post is published. */
+export const hasPublishedPosts = posts.some((p) => p.published);

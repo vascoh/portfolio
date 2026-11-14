@@ -4,9 +4,10 @@ import { site } from "@/content/site";
 import { href, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionary";
 import { GitHubIcon, LinkedInIcon } from "./icons";
+import { hasPublishedPosts } from "@/content/posts";
 
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary }) {
-  const links = (["about", "projects", "skills", "experience", "insights", "contact"] as const).map((k) => ({
+  const links = (["about", "projects", "skills", "experience", "insights", "contact"] as const).filter((k) => k !== "insights" || hasPublishedPosts).map((k) => ({
     key: k,
     label: dict.nav[k],
   }));

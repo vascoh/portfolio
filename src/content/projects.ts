@@ -136,6 +136,58 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "sql-assessment-mis-monitor",
+    kind: "bi",
+    alsoIn: "digital",
+    status: "professional",
+    icon: "search",
+    featured: true,
+    confidential: true,
+    title: { en: "SQL Server Assessment — Decision-Support Tool", pt: "Assessment SQL Server — Ferramenta de Apoio à Decisão" },
+    summary: {
+      en: "Assessment of an enterprise SQL Server 2019 environment (several databases, multi-terabyte), delivered as a single offline HTML tool for data teams that are not DBAs: what is wrong, why, who fixes it, expected benefit and how to validate.",
+      pt: "Assessment de um ambiente SQL Server 2019 empresarial (várias bases de dados, vários terabytes), entregue como uma ferramenta HTML única e offline para equipas de dados que não são DBA: o que está mal, porquê, quem resolve, o benefício esperado e como validar.",
+    },
+    tags: ["SQL Server", "T-SQL", "PowerShell", "Python", "Performance Tuning", "DMVs"],
+    context: {
+      en: "Built in a professional context for a data/MIS team working on a large SQL Server 2019 environment. Client, server and database names are not published.",
+      pt: "Desenvolvido em contexto profissional para uma equipa de dados/MIS que trabalha sobre um ambiente SQL Server 2019 de grande dimensão. Os nomes do cliente, do servidor e das bases de dados não são publicados.",
+    },
+    problem: {
+      en: "Classic DBA reports list hundreds of findings without saying who should act, how much effort it takes or how to prove the improvement — so data teams cannot prioritise or argue their case.",
+      pt: "Os relatórios clássicos de DBA listam centenas de achados sem dizer quem deve agir, quanto esforço exige ou como provar a melhoria — e as equipas de dados não conseguem priorizar nem fundamentar o pedido.",
+    },
+    objective: {
+      en: "Turn a technical assessment into decisions: classified actions, quick wins with rollback, health scores and a roadmap, every number traceable to its source.",
+      pt: "Transformar um assessment técnico em decisões: ações classificadas, quick wins com rollback, health scores e roadmap, com cada número rastreável à sua fonte.",
+    },
+    architecture: [
+      { label: { en: "Collection", pt: "Recolha" }, nodes: ["PowerShell collector", "DMVs → CSV"] },
+      { label: { en: "Curation", pt: "Curadoria" }, nodes: ["Python build", "Ticket classification"] },
+      { label: { en: "Tool", pt: "Ferramenta" }, nodes: ["Single-file HTML", "100% offline"] },
+      { label: { en: "Decision", pt: "Decisão" }, nodes: ["Quick wins", "Roadmap"] },
+    ],
+    features: [
+      { en: "226 actions classified by owner: data team, DBA, infrastructure or development", pt: "226 ações classificadas por responsável: equipa de dados, DBA, infraestrutura ou desenvolvimento" },
+      { en: "20 quick wins, each with impact, before/after with confidence level, SQL and rollback", pt: "20 quick wins, cada um com impacto, antes/depois com nível de confiança, SQL e rollback" },
+      { en: "12 health-score categories and a roadmap derived from the actions' priority", pt: "12 categorias de health score e roadmap derivado da prioridade das ações" },
+      { en: "26 learning articles (MAXDOP, waits, missing indexes…) illustrated with the environment's own data", pt: "26 artigos de aprendizagem (MAXDOP, waits, índices em falta…) ilustrados com dados do próprio ambiente" },
+      { en: "PowerShell collector whose CSVs are read locally in the browser — no data leaves the machine", pt: "Coletor PowerShell cujos CSVs são lidos localmente no browser — nenhum dado sai da máquina" },
+      { en: "Anonymised generic edition whose findings are computed at runtime from the collected data", pt: "Edição genérica anonimizada, com achados calculados em runtime a partir dos dados recolhidos" },
+    ],
+    approach: [
+      { en: "Never invent data: where there is no evidence the tool shows “N/A” with an explanation.", pt: "Nunca inventar dados: onde não há evidência, a ferramenta mostra «N/D» com explicação." },
+      { en: "Decision support, not an automatic judge: objective problem, recommended practice and contextual observation are kept apart.", pt: "Apoio à decisão, não juiz automático: problema objetivo, prática recomendada e observação contextual ficam separados." },
+      { en: "Each recommendation explains why, its cost and when it does not apply.", pt: "Cada recomendação explica porquê, o custo e quando não se aplica." },
+    ],
+    role: { en: "Author — requirements, architecture, SQL analysis and functional validation.", pt: "Autor — requisitos, arquitetura, análise SQL e validação funcional." },
+    aiUsage: {
+      en: "Claude and ChatGPT assisted with design and implementation of the HTML tool and build scripts; requirements, architecture and validation are mine.",
+      pt: "O Claude e o ChatGPT apoiaram o desenho e a implementação da ferramenta HTML e dos scripts de build; requisitos, arquitetura e validação são meus.",
+    },
+    results: confidentialResults,
+  },
+  {
     slug: "sql-server-performance-optimization",
     kind: "bi",
     status: "professional",
@@ -336,7 +388,6 @@ export const projects: Project[] = [
     kind: "digital",
     status: "published",
     icon: "cake",
-    featured: true,
     title: { en: "Roberta C Cakes", pt: "Roberta C Cakes" },
     summary: {
       en: "Website for a celebration-cake atelier in Amora, Seixal — wedding, christening and milestone cakes designed from scratch, with a clear ordering journey and personalised consultation.",
@@ -367,7 +418,6 @@ export const projects: Project[] = [
     kind: "digital",
     status: "published",
     icon: "anchor",
-    featured: true,
     title: { en: "Patrão Mor Amora — Nautical School", pt: "Patrão Mor Amora — Escola Náutica" },
     summary: {
       en: "Website for a DGRM-certified nautical school: an entry hub for the two schools (Amora and Oeiras) and a full site for the Amora unit, with its courses and contacts.",
@@ -414,6 +464,7 @@ export const projects: Project[] = [
     slug: "faresniper",
     kind: "digital",
     status: "development",
+    previewUrl: "https://luxeradar.vercel.app",
     icon: "radar",
     title: { en: "FareSniper — AI Travel Deal Radar", pt: "FareSniper — Radar de Viagens com IA" },
     summary: {
@@ -435,14 +486,15 @@ export const projects: Project[] = [
   {
     slug: "blocos",
     kind: "digital",
-    status: "development",
+    status: "published",
+    url: "https://blocos-rose.vercel.app",
     icon: "blocks",
     title: { en: "Blocos — Local-first Notes", pt: "Blocos — Notas Local-first" },
     summary: {
       en: "Notion-style pages and blocks editor that runs locally and keeps data private, installable as a PWA, with light and dark themes.",
       pt: "Editor de páginas e blocos ao estilo do Notion, que funciona localmente e mantém os dados privados, instalável como PWA, com tema claro e escuro.",
     },
-    tags: ["Next.js", "PWA", "Vercel", "AI-assisted Development"],
+    tags: ["Next.js", "TypeScript", "PWA", "Supabase", "AI-assisted Development"],
     features: [
       { en: "Pages and blocks editing", pt: "Edição de páginas e blocos" },
       { en: "Local, private storage", pt: "Armazenamento local e privado" },
@@ -453,33 +505,44 @@ export const projects: Project[] = [
   {
     slug: "cryptobot",
     kind: "digital",
-    status: "development",
+    status: "prototype",
     icon: "bot",
-    title: { en: "CryptoBot", pt: "CryptoBot" },
+    featured: true,
+    personal: true,
+    title: { en: "CryptoBot — Trading Strategy Research", pt: "CryptoBot — Investigação de Estratégias de Trading" },
     summary: {
-      en: "Python project around cryptocurrency market automation, deployed on Vercel — in development.",
-      pt: "Projeto em Python de automatização sobre o mercado de criptomoedas, publicado no Vercel — em desenvolvimento.",
+      en: "Python research project that tests crypto trading strategies with backtests, out-of-sample validation and paper trading in the cloud. The honest outcome: no strategy showed a net edge after costs, so no real money was used.",
+      pt: "Projeto de investigação em Python que testa estratégias de trading em criptomoedas com backtests, validação fora da amostra e paper trading na nuvem. O resultado honesto: nenhuma estratégia mostrou vantagem líquida depois de custos, por isso não se usou dinheiro real.",
     },
-    tags: ["Python", "Vercel", "Automation"],
-  },
-  {
-    slug: "sql-assessment-mis-monitor",
-    kind: "digital",
-    status: "development",
-    icon: "search",
-    title: { en: "SQL Assessment / MIS Monitor", pt: "SQL Assessment / MIS Monitor" },
-    summary: {
-      en: "Technical analysis and assessment of SQL code, focused on performance, code quality and monitoring.",
-      pt: "Análise e avaliação técnica de código SQL, com foco em performance, qualidade de código e monitorização.",
-    },
-    tags: ["SQL Server", "T-SQL", "Performance Tuning", "LLMs"],
+    tags: ["Python", "pandas", "pytest", "PostgreSQL", "Supabase", "Vercel"],
     problem: {
-      en: "SQL codebases grow over time and accumulate performance and quality issues that are hard to see without a structured assessment.",
-      pt: "As bases de código SQL crescem com o tempo e acumulam problemas de performance e qualidade difíceis de identificar sem uma avaliação estruturada.",
+      en: "Most trading bots are judged on gross backtest returns. Fees, minimum order sizes, failed legs and overfitting make many of them lose money in reality.",
+      pt: "A maioria dos bots de trading é avaliada pelo retorno bruto do backtest. Comissões, mínimos de ordem, pernas falhadas e sobreajuste fazem muitos deles perder dinheiro na realidade.",
     },
+    objective: {
+      en: "Only move a strategy towards real money if it beats costs out of sample, under a written risk policy.",
+      pt: "Só avançar uma estratégia para dinheiro real se vencer os custos fora da amostra, segundo uma política de risco escrita.",
+    },
+    architecture: [
+      { label: { en: "Data", pt: "Dados" }, nodes: ["Exchange API (ccxt)", "Prices & funding rates"] },
+      { label: { en: "Research", pt: "Investigação" }, nodes: ["Python · pandas", "Train / validation / OOS"] },
+      { label: { en: "Paper trading", pt: "Paper trading" }, nodes: ["Supabase (PostgreSQL)", "pg_cron every 5 min"] },
+      { label: { en: "Monitoring", pt: "Acompanhamento" }, nodes: ["Vercel page", "Read-only access"] },
+    ],
+    features: [
+      { en: "Backtests of 8 strategies with gross-vs-net screening against trading costs", pt: "Backtests de 8 estratégias com triagem bruto-vs-líquido face aos custos de negociação" },
+      { en: "Delta-neutral funding-rate carry tested on 8 assets", pt: "Carry delta-neutro de funding rates testado em 8 ativos" },
+      { en: "Paper trading in the cloud with exchange minimums, step sizes and failed-leg handling", pt: "Paper trading na nuvem com mínimos da corretora, passos de preço e tratamento de pernas falhadas" },
+      { en: "Accounting with a verified identity and an automated daily exit report", pt: "Contabilidade com identidade verificada e relatório diário automático" },
+    ],
+    results: {
+      en: "0 of 8 strategies passed the risk policy; the carry strategy showed no net edge in 2025–2026. The project stopped before real money — the expected outcome of a rigorous process, not an unfinished one.",
+      pt: "0 de 8 estratégias passaram a política de risco; o carry não mostrou vantagem líquida em 2025–2026. O projeto parou antes do dinheiro real — o resultado esperado de um processo rigoroso, não um projeto por acabar.",
+    },
+    role: { en: "Individual project — research, code and cloud deployment.", pt: "Projeto individual — investigação, código e publicação na nuvem." },
     aiUsage: {
-      en: "LLMs assist in building the tooling and documentation; assessment criteria are defined from hands-on SQL Server experience.",
-      pt: "Os LLMs ajudam na construção das ferramentas e documentação; os critérios de avaliação são definidos com base na experiência prática em SQL Server.",
+      en: "Developed with AI assistance (Claude) for code and analysis; risk rules and go/no-go decisions are mine.",
+      pt: "Desenvolvido com apoio de IA (Claude) no código e na análise; as regras de risco e as decisões de avançar ou parar são minhas.",
     },
   },
 ];

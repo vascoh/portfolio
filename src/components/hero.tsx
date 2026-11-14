@@ -48,7 +48,7 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary }) {
             ) : (
               <ButtonLink href={href(lang, "contact#cv")} variant="secondary" size="lg">
                 <Download aria-hidden />
-                {h.cv}
+                {h.cvRequest}
               </ButtonLink>
             )}
             <ButtonLink href={href(lang, "contact")} variant="ghost" size="lg">
