@@ -48,10 +48,15 @@ export function ProjectCard({ project, lang, dict }: { project: Project; lang: L
           </li>
         ))}
       </ul>
-      <div aria-hidden className="pointer-events-none relative mt-auto flex items-center gap-1.5 pt-6 text-sm font-medium text-accent group-hover:underline underline-offset-4">
+      <Link
+        href={link}
+        tabIndex={-1}
+        aria-hidden
+        className="relative z-10 mt-auto inline-flex w-fit items-center gap-1.5 pt-6 text-sm font-medium text-accent underline-offset-4 group-hover:underline"
+      >
         {project.kind === "bi" ? dict.projects.readCase : dict.projects.viewProject}
         <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
-      </div>
+      </Link>
     </article>
   );
 }
