@@ -192,7 +192,7 @@ export const projects: Project[] = [
     kind: "bi",
     status: "professional",
     icon: "gauge",
-    featured: true,
+    featured: false,
     confidential: true,
     title: {
       en: "SQL Server Performance & Process Optimization",
@@ -448,12 +448,21 @@ export const projects: Project[] = [
       en: "Premium website for a private chauffeur service that runs exclusively on Saturdays — transfers, events and private experiences in a Tesla Model Y driven by the host — with services, the booking journey and an availability request.",
       pt: "Website premium para um serviço de motorista privado exclusivamente aos sábados — transfers, eventos e experiências privadas num Tesla Model Y conduzido pelo próprio anfitrião — com serviços, percurso de reserva e pedido de disponibilidade.",
     },
-    tags: ["Next.js", "Vercel", "AI-assisted Development"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel", "AI-assisted Development"],
     previewUrl: "https://sabados-alpha.vercel.app",
+    featured: true,
     features: [
       { en: "Three service formats: transfer, discovery day, custom day", pt: "Três formatos de serviço: transfer, dia de descoberta, dia à medida" },
       { en: "Four-step booking journey", pt: "Percurso de reserva em quatro passos" },
       { en: "Availability request and direct contact", pt: "Pedido de disponibilidade e contacto direto" },
+      { en: "Saturday date picker (Europe/Lisbon time zone), with unit tests", pt: "Seletor de sábados (fuso Europe/Lisbon), com testes unitários" },
+      { en: "Request assembled on the device and sent by WhatsApp — no backend, no stored data", pt: "Pedido montado no dispositivo e enviado por WhatsApp — sem backend nem dados guardados" },
+      { en: "Illustrative Creative Commons photos with author credits; vehicle and host photos only real ones", pt: "Fotografias ilustrativas Creative Commons com crédito do autor; carro e anfitrião só com fotografias reais" },
+    ],
+    gallery: [
+      { src: "/images/projects/sabados-hero.webp", alt: { en: "Home: “Private chauffeur, on Saturdays”", pt: "Início: «Motorista privado, ao sábado»" } },
+      { src: "/images/projects/sabados-experiencias.webp", alt: { en: "Service formats, with an illustrative photo", pt: "Formatos de serviço, com fotografia ilustrativa" } },
+      { src: "/images/projects/sabados-pedido.webp", alt: { en: "Availability request with the Saturday picker", pt: "Pedido de disponibilidade com o seletor de sábados" } },
     ],
     aiUsage: {
       en: "LLM-assisted development; content and final details still being completed.",
