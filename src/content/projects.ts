@@ -443,10 +443,10 @@ export const projects: Project[] = [
     kind: "digital",
     status: "development",
     icon: "car",
-    title: { en: "Sábados — Private Transfers & Tours", pt: "Sábados — Transfers e Passeios Privados" },
+    title: { en: "Sábados — Private Chauffeur (Luxury)", pt: "Sábados — Motorista Privado (Luxo)" },
     summary: {
-      en: "Website for a private transfer and tour service that runs exclusively on Saturdays, in a Tesla Model Y driven by the host himself — with services, the booking journey and an availability request.",
-      pt: "Website para um serviço de transfers e passeios privados exclusivamente aos sábados, num Tesla Model Y conduzido pelo próprio anfitrião — com serviços, percurso de reserva e pedido de disponibilidade.",
+      en: "Premium website for a private chauffeur service that runs exclusively on Saturdays — transfers, events and private experiences in a Tesla Model Y driven by the host — with services, the booking journey and an availability request.",
+      pt: "Website premium para um serviço de motorista privado exclusivamente aos sábados — transfers, eventos e experiências privadas num Tesla Model Y conduzido pelo próprio anfitrião — com serviços, percurso de reserva e pedido de disponibilidade.",
     },
     tags: ["Next.js", "Vercel", "AI-assisted Development"],
     previewUrl: "https://sabados-alpha.vercel.app",
