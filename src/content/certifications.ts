@@ -23,25 +23,30 @@ export const certifications: Certification[] = [
     issuer: "Microsoft",
     code: "PL-300",
     type: "official",
-    year: null, // TODO: confirm year
+    year: "2024–2025", // CV: "Analyzing and Visualizing Data with Microsoft Power BI"
     url: null, // TODO: add Microsoft Learn credential URL
   },
+  { name: { en: "Microsoft Office Master 2016", pt: "Microsoft Office Master 2016" }, issuer: "Microsoft", type: "official", year: "2016", url: null },
   {
-    name: { en: "Microsoft Office Master", pt: "Microsoft Office Master" },
+    name: { en: "Microsoft Office Specialist: Excel 2016 Expert", pt: "Microsoft Office Specialist: Excel 2016 Expert" },
     issuer: "Microsoft",
     type: "official",
-    year: null,
+    year: "2016",
     url: null,
   },
   {
-    name: {
-      en: "Trainer Pedagogical Certification",
-      pt: "Certificação Pedagógica de Formador",
-    },
-    issuer: "—", // TODO: confirm issuing entity from CV
+    name: { en: "Microsoft Office Specialist: Word 2016 Expert", pt: "Microsoft Office Specialist: Word 2016 Expert" },
+    issuer: "Microsoft",
+    type: "official",
+    year: "2016",
+    url: null,
+  },
+  { name: { en: "Digital Marketing", pt: "Marketing Digital" }, issuer: "Google", type: "official", year: "2017", url: null },
+  {
+    name: { en: "Trainer Pedagogical Certification", pt: "Certificação Pedagógica de Formador" },
+    issuer: "—", // TODO: confirm issuing entity
     type: "official",
     year: null,
     url: null,
   },
-  // TODO: add other certifications proven by the CV.
 ];

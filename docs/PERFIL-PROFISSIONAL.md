@@ -6,10 +6,11 @@ Textos de base para o site, LinkedIn e CV, escritos só com factos confirmados
 ## Factos confirmados
 
 - **Função atual:** Senior BI Consultant na Noesis, desde março de 2022.
+- **Percurso anterior (CV oficial):** Consultor de BI na genesis.studio (banca, 08/2021–03/2022); Consultor de BI na IDW (administração pública, 10/2020–09/2021); Consultor Júnior de BI na IDW (02/2019–12/2019); e-commerce e dropshipping como freelancer (12/2016–01/2022).
 - **Experiência em BI e análise de dados:** cerca de 8 anos, depois de um percurso anterior em gestão, logística e reporting.
-- **Formação:** Licenciatura em Gestão da Distribuição e Logística (`[instituição]`, `[ano]`) e Pós-graduação em Gestão da Informação e Business Intelligence na Saúde, NOVA IMS (`[ano]`).
+- **Formação:** Licenciatura em Gestão da Distribuição e Logística (Instituto Politécnico de Setúbal, 1997–2002), Curso Nível 6 em Distribuição e Logística (IEFP, 2006–2007) e Pós-graduação em Gestão da Informação e Business Intelligence na Saúde, NOVA IMS (2019–2020).
 - **Certificações:**
-  - Microsoft Certified: Power BI Data Analyst Associate (PL-300), `[ano, URL da credencial]`;
+  - Microsoft Certified: Power BI Data Analyst Associate (PL-300), 2024–2025, `[URL da credencial]`;
   - Microsoft Office Master;
   - Certificação Pedagógica de Formador (`[entidade]`).
 - **Escala:** modelos e processos com centenas de milhões de linhas.
@@ -76,8 +77,6 @@ Interessam-me especialmente a engenharia de dados e a aplicação de dados ao de
 
 ## Lacunas a preencher
 
-1. As funções anteriores à Noesis: empresas ou setores, datas e responsabilidades.
-2. A instituição e o ano da licenciatura, e o ano da pós-graduação.
-3. O ano e o URL da credencial PL-300, e a entidade da certificação de formador.
-4. O CV em PDF (PT e EN) e uma fotografia profissional.
-5. Capturas de ecrã do relatório FPF e o repositório público, se o vieres a publicar.
+1. O URL da credencial PL-300 e a entidade da certificação de formador.
+2. O CV em PDF (PT e EN).
+3. Capturas de ecrã do relatório FPF e o repositório público, se o vieres a publicar.

@@ -1,8 +1,8 @@
-import { Award, BookOpen, Briefcase, CircleDashed, ExternalLink, GraduationCap } from "lucide-react";
+import { Award, BookOpen, Briefcase, ExternalLink, GraduationCap, Languages } from "lucide-react";
 import { ContactCta } from "@/components/contact-cta";
 import { PageHeader } from "@/components/section-heading";
 import { certifications } from "@/content/certifications";
-import { education, roles, training } from "@/content/experience";
+import { education, languages, roles, training } from "@/content/experience";
 import { tr, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionary";
 import { pageMetadata } from "@/lib/seo";
@@ -51,7 +51,17 @@ export default async function ExperiencePage({ params }: Props) {
               <h3 className="mt-2 text-xl font-semibold text-fg">
                 {tr(r.title, lang)} <span className="text-fg-muted">· {r.company}</span>
               </h3>
+              {(r.sector || r.location) && (
+                <p className="mt-1 text-sm text-fg-subtle">{[r.sector ? tr(r.sector, lang) : null, r.location].filter(Boolean).join(" · ")}</p>
+              )}
               <p className="mt-3 max-w-2xl leading-relaxed text-fg-muted">{tr(r.description, lang)}</p>
+              {r.highlights && (
+                <ul className="mt-3 max-w-2xl list-disc space-y-1 pl-5 text-sm leading-relaxed text-fg-muted marker:text-accent">
+                  {r.highlights.map((h, j) => (
+                    <li key={j}>{tr(h, lang)}</li>
+                  ))}
+                </ul>
+              )}
               {r.tags && (
                 <ul className="mt-4 flex flex-wrap gap-1.5">
                   {r.tags.map((t) => (
@@ -63,13 +73,6 @@ export default async function ExperiencePage({ params }: Props) {
               )}
             </li>
           ))}
-          <li className="relative">
-            <span aria-hidden className="absolute -left-[2.4rem] top-1.5 size-3 rounded-full border-2 border-dashed border-fg-subtle bg-bg" />
-            <p className="flex items-center gap-2 rounded-xl border border-dashed border-border-strong p-4 text-sm text-fg-subtle">
-              <CircleDashed className="size-4 shrink-0" aria-hidden />
-              {e.previousPlaceholder}
-            </p>
-          </li>
         </ol>
       </section>
 
@@ -96,6 +99,17 @@ export default async function ExperiencePage({ params }: Props) {
             <ul className="mt-4 space-y-2 text-sm text-fg-muted">
               {training.map((t, i) => (
                 <li key={i}>{tr(t, lang)}</li>
+              ))}
+            </ul>
+            <h3 className="mt-10 flex items-center gap-2 font-semibold text-fg">
+              <Languages className="size-4 text-accent" aria-hidden />
+              {e.languages}
+            </h3>
+            <ul className="mt-4 space-y-2 text-sm text-fg-muted">
+              {languages.map((l, i) => (
+                <li key={i}>
+                  <span className="text-fg">{tr(l.name, lang)}</span> · {tr(l.level, lang)}
+                </li>
               ))}
             </ul>
           </div>

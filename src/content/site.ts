@@ -12,7 +12,7 @@ export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://vasco-henriques.vercel.app").replace(/\/$/, ""),
 
   /** Professional photo. Place the file in /public/images and set e.g. "/images/vasco-henriques.jpg". */
-  photo: null as string | null,
+  photo: "/images/vasco-henriques.webp" as string | null,
 
   contact: {
     /** TODO: professional email address. */

@@ -71,6 +71,20 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+  /* Texto corrido justificado (pedido do Vasco, 2026-11-15). Títulos e textos centrados mantêm-se. */
+  main p,
+  main li {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  main .text-center p,
+  main .text-center li,
+  main p.text-center {
+    text-align: center;
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
   ::selection {
     background: color-mix(in oklab, var(--accent) 35%, transparent);
   }

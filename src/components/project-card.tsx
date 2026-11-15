@@ -36,10 +36,16 @@ export function ProjectCard({ project, lang, dict }: { project: Project; lang: L
       </h3>
       <p className="pointer-events-none relative mt-2 text-sm leading-relaxed text-fg-muted">{tr(project.summary, lang)}</p>
       {(project.url || project.previewUrl) && (
-        <p className="pointer-events-none relative mt-3 flex items-center gap-1.5 font-mono text-xs text-accent-2">
+        <a
+          href={(project.url || project.previewUrl)!}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative z-10 mt-3 inline-flex w-fit items-center gap-1.5 rounded-sm font-mono text-xs text-accent-2 underline-offset-4 hover:underline"
+        >
           <Globe className="size-3.5" aria-hidden />
           {new URL((project.url || project.previewUrl)!).hostname}
-        </p>
+          <span className="sr-only"> ({lang === "en" ? "opens in a new tab" : "abre num novo separador"})</span>
+        </a>
       )}
       <ul className="pointer-events-none relative mt-5 flex flex-wrap gap-1.5" aria-label={dict.projects.technologies}>
         {project.tags.map((t) => (
