@@ -2,16 +2,15 @@ import Link from "next/link";
 import { ArrowRight, Award, CheckCircle2 } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { genericIcons } from "@/components/icons";
-import { ProjectCard } from "@/components/project-card";
-import { SectionHeading } from "@/components/section-heading";
-import { ButtonLink } from "@/components/ui/button";
+import { ProjectIndex } from "@/components/project-index";
+import { Eyebrow, SectionHeading } from "@/components/section-heading";
 import { ContactCta } from "@/components/contact-cta";
 import { aboutHighlights, aboutIntro } from "@/content/about";
 import { certifications } from "@/content/certifications";
-import { projects } from "@/content/projects";
 import { expertiseAreas, skillGroups } from "@/content/skills";
 import { href, tr, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionary";
+import { buildProjectIndex } from "@/lib/project-index";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ lang: Locale }> };
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function HomePage({ params }: Props) {
   const { lang } = await params;
   const d = getDictionary(lang);
-  const featured = projects.filter((p) => p.featured).slice(0, 6);
+  const work = buildProjectIndex(lang, d);
   const tech = skillGroups.filter((g) => g.level !== "learning").flatMap((g) => g.items.slice(0, 7));
 
   return (
@@ -90,22 +89,29 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Featured projects */}
-      <section className="container-page py-24 sm:py-32">
-        <div className="reveal flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading eyebrow={d.home.featuredEyebrow} title={d.home.featuredTitle} text={d.home.featuredText} />
-          <ButtonLink href={href(lang, "projects")} variant="secondary" className="shrink-0">
-            {d.home.allProjects}
-            <ArrowRight aria-hidden />
-          </ButtonLink>
+      {/* Projects — editorial index with live preview */}
+      <section id="projetos" aria-labelledby="projects-title" className="container-page scroll-mt-24 py-24 sm:py-32">
+        <div className="reveal grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:items-end lg:gap-14">
+          <div>
+            <Eyebrow>{d.work.eyebrow}</Eyebrow>
+            <h2 id="projects-title" className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.035em] text-fg sm:text-6xl lg:text-7xl">
+              <span className="block">{d.work.titleA}</span>
+              <span className="block text-gradient pb-2">{d.work.titleB}</span>
+            </h2>
+          </div>
+          <div className="lg:pb-3">
+            <p className="max-w-xl text-pretty text-left text-lg leading-relaxed text-fg-muted [hyphens:manual]">
+              {d.work.text.replace("{n}", String(work.length))}
+            </p>
+            <Link href={href(lang, "projects")} className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent">
+              {d.work.allProjects}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+            </Link>
+          </div>
         </div>
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p) => (
-            <li key={p.slug} className="reveal">
-              <ProjectCard project={p} lang={lang} dict={d} />
-            </li>
-          ))}
-        </ul>
+        <div className="mt-14">
+          <ProjectIndex entries={work} w={d.work} lang={lang} />
+        </div>
       </section>
 
       {/* Tech + certifications */}

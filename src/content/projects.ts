@@ -411,7 +411,12 @@ export const projects: Project[] = [
       en: "LLMs used to accelerate development and content structure; decisions and review done by me.",
       pt: "LLMs usados para acelerar o desenvolvimento e a estrutura de conteúdos; decisões e revisão feitas por mim.",
     },
-    gallery: [{ src: null, alt: { en: "Roberta C Cakes homepage", pt: "Página inicial Roberta C Cakes" } }],
+    gallery: [
+      {
+        src: "/images/projects/roberta-c-cakes-home.webp",
+        alt: { en: "Roberta C Cakes homepage: hero with a real wedding cake and the quote request", pt: "Página inicial da Roberta C Cakes: destaque com um bolo real e o pedido de orçamento" },
+      },
+    ],
   },
   {
     slug: "patrao-mor-amora",
@@ -436,7 +441,12 @@ export const projects: Project[] = [
       en: "LLM-assisted development, with human review of structure, content and SEO.",
       pt: "Desenvolvimento assistido por LLMs, com revisão humana da estrutura, conteúdos e SEO.",
     },
-    gallery: [{ src: null, alt: { en: "Patrão Mor hub page", pt: "Página hub Patrão Mor" } }],
+    gallery: [
+      {
+        src: "/images/projects/patrao-mor-hub.webp",
+        alt: { en: "Patrão Mor hub page: choosing between the Oeiras and Amora schools", pt: "Página hub Patrão Mor: escolha entre as escolas de Oeiras e da Amora" },
+      },
+    ],
   },
   {
     slug: "sabados",
