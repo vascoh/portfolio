@@ -21,7 +21,7 @@ npm run lint    # type-check
 
 ## Deploy
 
-**Vercel (active):** the `vasco-henriques` project is linked to `vascoh/portfolio`; every push to `main` deploys to production at https://vasco-henriques.vercel.app (`vercel.json` sets the Next.js framework). Set `NEXT_PUBLIC_SITE_URL` only if the domain changes.
+**Vercel (active):** the `vasco-henriques` project is linked to `vascoh/portfolio`; every push to `main` deploys to production at https://vascohenriques.online (also https://vasco-henriques.vercel.app; DNS at Amen; `vercel.json` sets the Next.js framework). Set `NEXT_PUBLIC_SITE_URL` only if the domain changes.
 
 The former GitHub Pages site (`vascoh/vascoh.github.io`) now only redirects here, keeping the path.
 

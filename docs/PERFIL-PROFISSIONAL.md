@@ -60,7 +60,7 @@ Interessam-me especialmente a engenharia de dados e a aplicação de dados ao de
 >
 > Procuro desafios em BI, engenharia de dados e análise desportiva.
 >
-> Portefólio: https://vasco-henriques.vercel.app
+> Portefólio: https://vascohenriques.online
 
 ## CV — Perfil (3 linhas)
 

@@ -9,7 +9,7 @@ export const site = {
   headline: "Senior BI Consultant & Data Engineer | SQL Server · Power BI · Python",
   location: "Lisboa, Portugal",
   /** Public URL of the deployed website (used for SEO, sitemap and Open Graph). */
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://vasco-henriques.vercel.app").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://vascohenriques.online").replace(/\/$/, ""),
 
   /** Professional photo. Place the file in /public/images and set e.g. "/images/vasco-henriques.jpg". */
   photo: "/images/vasco-henriques.webp" as string | null,
