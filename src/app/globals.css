@@ -170,6 +170,36 @@
     animation: swap-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
+  /* Hero-style entrance for blocks wrapped in <InView>. Hidden only once JS marks them "ready". */
+  [data-anim="ready"] .anim,
+  [data-anim="ready"] .anim-line > span {
+    opacity: 0;
+  }
+  [data-anim="in"] .anim {
+    animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+  .anim-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+  }
+  .anim-line > span {
+    display: block;
+  }
+  [data-anim="in"] .anim-line > span {
+    animation: line-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 120ms);
+  }
+
+  /* Floating glass chips beside the project preview (same motion as the hero chips). */
+  .chip-float {
+    animation:
+      chip-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+      float 6s ease-in-out 0.6s infinite;
+    animation-delay: calc(var(--i, 0) * 110ms), calc(0.6s + var(--i, 0) * 1.2s);
+  }
+
   .fade-up {
     animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
@@ -201,6 +231,37 @@
   from {
     opacity: 0;
     transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes line-rise {
+  from {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
   }
   to {
     opacity: 1;

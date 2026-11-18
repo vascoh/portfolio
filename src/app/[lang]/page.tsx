@@ -1,8 +1,11 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { ArrowRight, Award, CheckCircle2 } from "lucide-react";
 import { Hero } from "@/components/hero";
 import { genericIcons } from "@/components/icons";
 import { ProjectIndex } from "@/components/project-index";
+import { InView } from "@/components/in-view";
+import { DataNetwork } from "@/components/data-network";
 import { Eyebrow, SectionHeading } from "@/components/section-heading";
 import { ContactCta } from "@/components/contact-cta";
 import { aboutHighlights, aboutIntro } from "@/content/about";
@@ -89,29 +92,50 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Projects — editorial index with live preview */}
-      <section id="projetos" aria-labelledby="projects-title" className="container-page scroll-mt-24 py-24 sm:py-32">
-        <div className="reveal grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:items-end lg:gap-14">
-          <div>
-            <Eyebrow>{d.work.eyebrow}</Eyebrow>
-            <h2 id="projects-title" className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.035em] text-fg sm:text-6xl lg:text-7xl">
-              <span className="block">{d.work.titleA}</span>
-              <span className="block text-gradient pb-2">{d.work.titleB}</span>
-            </h2>
-          </div>
-          <div className="lg:pb-3">
-            <p className="max-w-xl text-pretty text-left text-lg leading-relaxed text-fg-muted [hyphens:manual]">
-              {d.work.text.replace("{n}", String(work.length))}
-            </p>
-            <Link href={href(lang, "projects")} className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent">
-              {d.work.allProjects}
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
-            </Link>
-          </div>
+      {/* Projects — editorial index with live preview, hero-style motion */}
+      <section
+        id="projetos"
+        aria-labelledby="projects-title"
+        className="relative isolate scroll-mt-24 overflow-hidden py-24 sm:py-32"
+      >
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <div className="bg-grid absolute inset-0" />
+          <DataNetwork className="absolute inset-x-0 top-0 h-[44rem] w-full opacity-50 [mask-image:linear-gradient(to_bottom,black_55%,transparent)]" />
+          <div className="absolute -top-24 left-[-10%] h-[26rem] w-[44rem] rounded-full bg-accent/12 blur-3xl" />
+          <div className="absolute right-[-8%] top-[38rem] h-96 w-96 rounded-full bg-accent-2/10 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-bg to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-bg to-transparent" />
         </div>
-        <div className="mt-14">
-          <ProjectIndex entries={work} w={d.work} lang={lang} />
-        </div>
+
+        <InView className="container-page">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.08fr)] lg:items-end lg:gap-14">
+            <div>
+              <div className="anim">
+                <Eyebrow>{d.work.eyebrow}</Eyebrow>
+              </div>
+              <h2 id="projects-title" className="text-balance text-5xl font-semibold leading-[0.95] tracking-[-0.035em] text-fg sm:text-6xl lg:text-7xl">
+                <span className="anim-line" style={{ "--i": 1 } as CSSProperties}>
+                  <span>{d.work.titleA}</span>
+                </span>
+                <span className="anim-line" style={{ "--i": 2 } as CSSProperties}>
+                  <span className="text-gradient pb-2">{d.work.titleB}</span>
+                </span>
+              </h2>
+            </div>
+            <div className="anim lg:pb-3" style={{ "--i": 4 } as CSSProperties}>
+              <p className="max-w-xl text-pretty text-left text-lg leading-relaxed text-fg-muted [hyphens:manual]">
+                {d.work.text.replace("{n}", String(work.length))}
+              </p>
+              <Link href={href(lang, "projects")} className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-accent">
+                {d.work.allProjects}
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+              </Link>
+            </div>
+          </div>
+          <div className="mt-14">
+            <ProjectIndex entries={work} w={d.work} lang={lang} />
+          </div>
+        </InView>
       </section>
 
       {/* Tech + certifications */}

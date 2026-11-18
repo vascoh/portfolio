@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { ArrowRight, ArrowUpRight, Camera, Plus, Shapes } from "lucide-react";
 import type { IndexEntry } from "@/lib/project-index";
 import type { Dictionary } from "@/i18n/dictionary";
@@ -13,6 +13,7 @@ type Filter = "all" | "done" | "ongoing";
 type Work = Dictionary["work"];
 
 const DESKTOP = "(min-width: 1024px)";
+const stagger = (i: number) => ({ "--i": i }) as CSSProperties;
 
 /* ───────────────────────────── Visuals ───────────────────────────── */
 
@@ -275,7 +276,7 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
   return (
     <div>
       {/* Filter */}
-      <div role="group" aria-label={w.filterLabel} className="flex flex-wrap items-center gap-2">
+      <div role="group" aria-label={w.filterLabel} className="anim flex flex-wrap items-center gap-2" style={stagger(5)}>
         {filters.map((f) =>
           counts[f.id] > 0 ? (
             <button
@@ -308,7 +309,7 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
             const isOpen = open === e.slug;
             const panelId = `${uid}-${e.slug}`;
             return (
-              <li key={e.slug} className="border-t border-border">
+              <li key={e.slug} className="anim border-t border-border" style={stagger(4 + Math.min(i, 8))}>
                 <button
                   ref={(el) => {
                     rowRefs.current[e.slug] = el;
@@ -379,8 +380,13 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
                 {/* Mobile / tablet: inline preview, opened by tap */}
                 {!desktop && isOpen && (
                   <div id={panelId} className="swap-in pb-8 lg:hidden">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-bg-elev">
-                      <ProjectVisual entry={e} w={w} eager />
+                    <div className="relative">
+                      <div aria-hidden className="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-br from-accent/25 via-transparent to-accent-2/20 blur-2xl" />
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-bg-elev">
+                        <div className="absolute inset-0 animate-[kenburns_9s_ease-out_both]">
+                          <ProjectVisual entry={e} w={w} eager />
+                        </div>
+                      </div>
                     </div>
                     <div className="mt-6">
                       <Details entry={e} w={w} lang={lang} />
@@ -393,12 +399,35 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
         </ol>
 
         {/* Desktop: sticky preview that follows hover / keyboard focus */}
-        <div className="hidden lg:block">
+        <div className="anim hidden lg:block" style={stagger(7)}>
           {current && (
+            <div className="sticky top-24">
+              {/* Hero-style halo + floating glass chips with the project's stack */}
+              <div
+                aria-hidden
+                className="absolute -inset-5 rounded-[2.25rem] bg-gradient-to-br from-accent/25 via-transparent to-accent-2/20 blur-2xl transition-opacity duration-700"
+              />
+              <div key={`chips-${current.slug}`} aria-hidden>
+                {current.tags.slice(0, 3).map((t, i) => (
+                  <span
+                    key={t}
+                    className={cn(
+                      "chip-float glass absolute z-10 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold text-fg shadow-lg",
+                      i === 0 && "-left-8 -top-3",
+                      i === 1 && "-right-6 top-[9.5rem]",
+                      i === 2 && "-left-10 top-[19rem]",
+                    )}
+                    style={stagger(i)}
+                  >
+                    <span className="size-1.5 rounded-full bg-gradient-to-br from-accent to-accent-2" />
+                    {t}
+                  </span>
+                ))}
+              </div>
             <section
               id={`${uid}-preview`}
               aria-labelledby={`${uid}-preview-title`}
-              className="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain rounded-3xl border border-border bg-bg-elev/70 p-3 [scrollbar-width:thin]"
+              className="relative max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain rounded-3xl border border-border bg-bg-elev/80 p-3 backdrop-blur [scrollbar-width:thin]"
             >
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-bg">
                 {visible.map((e, i) => (
@@ -410,7 +439,9 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
                       e.slug === current.slug ? "scale-100 opacity-100" : "pointer-events-none scale-[1.015] opacity-0",
                     )}
                   >
-                    <ProjectVisual entry={e} w={w} eager={i < 2} />
+                    <div className={cn("absolute inset-0", e.slug === current.slug && "animate-[kenburns_9s_ease-out_both]")}>
+                      <ProjectVisual entry={e} w={w} eager={i < 2} />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -436,6 +467,7 @@ export function ProjectIndex({ entries, w, lang }: { entries: IndexEntry[]; w: W
                 </div>
               </div>
             </section>
+            </div>
           )}
         </div>
       </div>
